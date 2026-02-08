@@ -21,37 +21,59 @@ which opencode && which jq && echo "✅ Ready!"
 
 ## Quick Start
 
-### 1. Clone & Install Globally
+### 1. Install the Script Globally
 
 ```bash
-# Clone the repo
-git clone https://github.com/adriiita/nope-opencode.git
-
-# Install the Ralph script globally
+# Install nope-ralph.sh to your PATH
 mkdir -p ~/.local/bin
-cp nope-opencode/nope-ralph.sh ~/.local/bin/
+curl -o ~/.local/bin/nope-ralph.sh https://raw.githubusercontent.com/adriiita/nope-opencode/main/nope-ralph.sh
 chmod +x ~/.local/bin/nope-ralph.sh
 
-# Add to PATH (add this line to ~/.zshrc)
+# Add to PATH (add this line to ~/.zshrc if not already there)
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-### 2. Create a New Project
+### 2. Set Up Your Project
 
 ```bash
-# Clone nope-opencode as your new project
-git clone https://github.com/adriiita/nope-opencode.git my-new-project
-cd my-new-project
+# Create your project folder
+mkdir my-app && cd my-app
 
-# Rename the config file (OpenCode requires this exact name)
-mv nopeopencode.json opencode.json
+# Clone nope-opencode INSIDE your project (as a subfolder)
+git clone https://github.com/adriiita/nope-opencode.git
 
-# Start OpenCode and create a PRD
+# Copy the config to your project root
+cp nope-opencode/nopeopencode.json ./opencode.json
+```
+
+Your project structure should look like:
+```
+my-app/                      ← Project root (run commands from here)
+├── nope-opencode/           ← Toolkit folder
+│   ├── skills/
+│   ├── commands/
+│   └── nopeopencode.json
+├── opencode.json            ← Config at project root
+├── ralph/                   ← Created by the workflow
+│   ├── prd.json
+│   └── progress.txt
+└── src/                     ← Your app code
+```
+
+### 3. Create a PRD and Run Ralph
+
+```bash
+# From your project root (NOT inside nope-opencode)
+cd my-app
+
+# Start OpenCode
 opencode
+
+# Create your PRD
 # Type: /prd-create [your feature description]
 # Type: /ralph-convert
 
-# Run the automation loop (creates ralph/ folder automatically)
+# Run the automation loop
 nope-ralph.sh
 ```
 
@@ -59,7 +81,7 @@ nope-ralph.sh
 
 | File | Description |
 |------|-------------|
-| [nopeopencode.json](nopeopencode.json) | Template config (copy to project as `opencode.json`) |
+| [nopeopencode.json](nopeopencode.json) | Template config (copy to project root as `opencode.json`) |
 | [nope-ralph.sh](nope-ralph.sh) | Ralph automation script |
 | [commands/](commands/) | Slash commands for OpenCode |
 | [skills/](skills/) | Skill definitions |
@@ -89,9 +111,9 @@ nope-ralph.sh
 | Issue | Solution |
 |-------|----------|
 | `command not found: nope-ralph.sh` | Install to PATH (see Quick Start step 1) |
-| `No prd.json found` | Make sure you're in the project root (where `opencode.json` is), then run `/prd-create` and `/ralph-convert` |
+| `No prd.json found` | Run from project root (where `opencode.json` is), not inside `nope-opencode/` |
 | `jq: command not found` | Install jq: `brew install jq` |
-| OpenCode can't find config | Rename `nopeopencode.json` to `opencode.json` in project root |
+| OpenCode can't find config | Copy `nopeopencode.json` to project root as `opencode.json` |
 
 ## License
 
