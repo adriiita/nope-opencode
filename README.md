@@ -1,70 +1,43 @@
 # Nope OpenCode Toolkit
 
-A toolkit for AI-assisted development with OpenCode, featuring skills, commands, and the Ralph automation loop.
+A toolkit for AI-assisted development with OpenCode.
 
 ## Prerequisites
 
 ```bash
-# Install required tools
 brew install node jq
 npm install -g opencode
-
-# Verify
-which opencode && which jq && echo "✅ Ready!"
 ```
 
-## Setup (One-Time)
+## Setup
 
 ```bash
-# 1. Clone the toolkit
+# Clone and enter
 git clone https://github.com/adriiita/nope-opencode.git
 cd nope-opencode
 
-# 2. Install the Ralph script globally
-mkdir -p ~/.local/bin
+# Rename config (OpenCode requires this name)
+mv nopeopencode.json opencode.json
+
+# Install script globally
 cp nope-ralph.sh ~/.local/bin/
 chmod +x ~/.local/bin/nope-ralph.sh
-
-# 3. Add to PATH (add to ~/.zshrc)
-export PATH="$HOME/.local/bin:$PATH"
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
-## Usage (For Each New Project)
+## Usage
 
 ```bash
-# 1. Set the toolkit path (adjust to where you cloned nope-opencode)
-NOPE_TOOLKIT=~/nope-opencode
-
-# 2. Create your project folder (OUTSIDE nope-opencode)
-mkdir ~/my-app && cd ~/my-app
-
-# 3. Copy the config file (MUST be named opencode.json)
-cp $NOPE_TOOLKIT/nopeopencode.json ./opencode.json
-
-# 4. Start OpenCode and create PRD
+# From inside nope-opencode (or any project with opencode.json)
 opencode
-# Type: /prd-create [your feature description]
-# Type: /ralph-convert
 
-# 5. Run the automation loop
+# In OpenCode:
+# /prd-create Build a tic-tac-toe game
+# /ralph-convert
+
+# Then run:
 nope-ralph.sh
-```
-
-## Project Structure
-
-```
-nope-opencode/              ← Toolkit (clone once, don't modify)
-├── skills/                 ← OpenCode skills
-├── commands/               ← Slash commands
-├── nopeopencode.json       ← Config template
-└── nope-ralph.sh           ← Ralph script
-
-~/my-app/                   ← Your project (separate folder)
-├── opencode.json           ← Copied from toolkit
-├── ralph/                  ← Created by Ralph
-│   ├── prd.json
-│   └── progress.txt
-└── src/                    ← Your app code
 ```
 
 ## Commands
@@ -72,22 +45,12 @@ nope-opencode/              ← Toolkit (clone once, don't modify)
 | Command | Description |
 |---------|-------------|
 | `/prd-create` | Create a PRD |
-| `/ralph-convert` | Convert PRD to Ralph format |
-| `/ralph-iterate` | Execute one Ralph iteration |
-
-## Skills
-
-- [browser-automation](skills/browser-automation/SKILL.md)
-- [compound](skills/compound/SKILL.md)
-- [playground](skills/playground/SKILL.md)
-- [prd](skills/prd/SKILL.md)
-- [ralph](skills/ralph/SKILL.md)
-- [ui-skills](skills/ui-skills/SKILL.md)
+| `/ralph-convert` | Convert PRD to prd.json |
+| `/ralph-iterate` | Execute one iteration |
 
 ## Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
-| `command not found: nope-ralph.sh` | Run setup step 2 & 3 |
+| `command not found: nope-ralph.sh` | Run the setup steps |
 | `No prd.json found` | Run `/prd-create` then `/ralph-convert` first |
-| OpenCode can't find config | Ensure `opencode.json` exists in project root |
