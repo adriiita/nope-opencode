@@ -36,21 +36,22 @@ chmod +x ~/.local/bin/nope-ralph.sh
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-### 2. Use in Your Project
+### 2. Create a New Project
 
 ```bash
-# Go to your project folder
-cd ~/my-project
+# Clone nope-opencode as your new project
+git clone https://github.com/adriiita/nope-opencode.git my-new-project
+cd my-new-project
 
-# Copy the config file (MUST be named opencode.json)
-cp ~/path/to/nope-opencode/nopeopencode.json ./opencode.json
+# Rename the config file (OpenCode requires this exact name)
+mv nopeopencode.json opencode.json
 
 # Start OpenCode and create a PRD
 opencode
 # Type: /prd-create [your feature description]
 # Type: /ralph-convert
 
-# Run the automation loop
+# Run the automation loop (creates ralph/ folder automatically)
 nope-ralph.sh
 ```
 
@@ -87,10 +88,10 @@ nope-ralph.sh
 
 | Issue | Solution |
 |-------|----------|
-| `command not found: nope-ralph.sh` | Install to PATH (see Quick Start) |
-| `No prd.json found` | Run `/prd-create` then `/ralph-convert` first |
+| `command not found: nope-ralph.sh` | Install to PATH (see Quick Start step 1) |
+| `No prd.json found` | Make sure you're in the project root (where `opencode.json` is), then run `/prd-create` and `/ralph-convert` |
 | `jq: command not found` | Install jq: `brew install jq` |
-| OpenCode can't find config | Rename to `opencode.json` in project root |
+| OpenCode can't find config | Rename `nopeopencode.json` to `opencode.json` in project root |
 
 ## License
 
