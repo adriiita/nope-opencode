@@ -1,36 +1,80 @@
 # Nope OpenCode Setup & Skills
 
-This is the Nope OpenCode setup with custom settings, plugins, and skills for AI-assisted development.
+AI-assisted development toolkit with custom settings, plugins, skills, and the Ralph automation loop.
 
 > Work in progress! Constantly learning and updating as we go.
 
-## What's Inside
+## Prerequisites
 
-- **Settings & Configuration**: Custom settings for Nope
-- **Skills**: Patterns and tools that have been helpful
-- **Plugins & Extensions**: Extensions currently in use
+Before using this toolkit, install the following:
+
+| Tool | Install Command | Purpose |
+|------|-----------------|---------|
+| **Node.js** | `brew install node` | Runtime for OpenCode |
+| **OpenCode CLI** | `npm install -g opencode` | AI coding assistant |
+| **jq** | `brew install jq` | JSON parsing for scripts |
+
+Verify installation:
+```bash
+which opencode && which jq && echo "✅ Ready!"
+```
+
+## Quick Start
+
+### 1. Clone & Install Globally
+
+```bash
+# Clone the repo
+git clone https://github.com/adriiita/nope-opencode.git
+
+# Install the Ralph script globally
+mkdir -p ~/.local/bin
+cp nope-opencode/nope-ralph.sh ~/.local/bin/
+chmod +x ~/.local/bin/nope-ralph.sh
+
+# Add to PATH (add this line to ~/.zshrc)
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+### 2. Use in Your Project
+
+```bash
+# Go to your project folder
+cd ~/my-project
+
+# Copy the config file (MUST be named opencode.json)
+cp ~/path/to/nope-opencode/nopeopencode.json ./opencode.json
+
+# Start OpenCode and create a PRD
+opencode
+# Type: /prd-create [your feature description]
+# Type: /ralph-convert
+
+# Run the automation loop
+nope-ralph.sh
+```
 
 ## Repository Map
 
-- [nopeopencode.json](nopeopencode.json) - Main OpenCode config
-- [commands/](commands/) - Slash commands (one command per markdown file)
-- [skills/](skills/) - Skills (each skill in its own folder with `SKILL.md`)
-- [skills/playground/](skills/playground/) - Playground skill plus templates
-- [nope-ralph.sh](nope-ralph.sh) - Ralph script for Nope
-- [package.json](package.json) - Project metadata
+| File | Description |
+|------|-------------|
+| [nopeopencode.json](nopeopencode.json) | Template config (copy to project as `opencode.json`) |
+| [nope-ralph.sh](nope-ralph.sh) | Ralph automation script |
+| [commands/](commands/) | Slash commands for OpenCode |
+| [skills/](skills/) | Skill definitions |
 
-## Commands At A Glance
+## Commands
 
-- [compound](commands/compound.md)
-- [playground-create](commands/playground-create.md)
-- [playground-open](commands/playground-open.md)
-- [playground-refresh](commands/playground-refresh.md)
-- [prd-create](commands/prd-create.md)
-- [ralph-convert](commands/ralph-convert.md)
-- [ralph-iterate](commands/ralph-iterate.md)
-- [review-code](commands/review-code.md)
+| Command | Description |
+|---------|-------------|
+| `/prd-create` | Create a Product Requirements Document |
+| `/ralph-convert` | Convert PRD to Ralph format |
+| `/ralph-iterate` | Execute one Ralph iteration |
+| `/compound` | Compound engineering workflow |
+| `/playground-create` | Create interactive HTML playground |
+| `/review-code` | Code review workflow |
 
-## Skills At A Glance
+## Skills
 
 - [browser-automation](skills/browser-automation/SKILL.md)
 - [compound](skills/compound/SKILL.md)
@@ -39,14 +83,15 @@ This is the Nope OpenCode setup with custom settings, plugins, and skills for AI
 - [ralph](skills/ralph/SKILL.md)
 - [ui-skills](skills/ui-skills/SKILL.md)
 
-## Feel Free to Use
+## Troubleshooting
 
-Everything here is open for you to grab, customize, or remix. Just point your OpenCode agent to this repo and ask it to:
+| Issue | Solution |
+|-------|----------|
+| `command not found: nope-ralph.sh` | Install to PATH (see Quick Start) |
+| `No prd.json found` | Run `/prd-create` then `/ralph-convert` first |
+| `jq: command not found` | Install jq: `brew install jq` |
+| OpenCode can't find config | Rename to `opencode.json` in project root |
 
-- Pull in any skills you like
-- Adapt the setup for your own workflow
-- Remix anything to fit your projects
+## License
 
-## Get in Touch
-
-Questions or want to collaborate? Reach out via GitHub issues or discussions.
+Open for use, customization, and remixing.
