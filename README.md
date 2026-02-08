@@ -32,18 +32,21 @@ export PATH="$HOME/.local/bin:$PATH"
 ## Usage (For Each New Project)
 
 ```bash
-# 1. Create your project folder (OUTSIDE nope-opencode)
+# 1. Set the toolkit path (adjust to where you cloned nope-opencode)
+NOPE_TOOLKIT=~/nope-opencode
+
+# 2. Create your project folder (OUTSIDE nope-opencode)
 mkdir ~/my-app && cd ~/my-app
 
-# 2. Copy the config file
-cp ~/path/to/nope-opencode/nopeopencode.json ./opencode.json
+# 3. Copy the config file (MUST be named opencode.json)
+cp $NOPE_TOOLKIT/nopeopencode.json ./opencode.json
 
-# 3. Start OpenCode and create PRD
+# 4. Start OpenCode and create PRD
 opencode
 # Type: /prd-create [your feature description]
 # Type: /ralph-convert
 
-# 4. Run the automation loop
+# 5. Run the automation loop
 nope-ralph.sh
 ```
 
